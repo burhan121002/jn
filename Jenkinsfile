@@ -6,7 +6,7 @@ pipeline {
             steps {
                 // Checkout the source code from GitHub
                 script {
-                    git 'https://github.com/burhan121002/jn.git'
+                    git branch: 'main', url: 'https://github.com/burhan121002/jn.git'
                 }
             }
         }
