@@ -16,7 +16,7 @@ pipeline {
                 // Install dependencies and run the Python application
                 script {
                     
-                    sh 'python app.py'
+                    bat 'python app.py'
                 }
             }
         }
