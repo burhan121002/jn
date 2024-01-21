@@ -6,7 +6,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = 'AKIAQTLNJBEPTX7NPUOF'
         AWS_SECRET_ACCESS_KEY = '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'
         NGINX_DIR = '/usr/share/nginx/html/'
-        EC2_PUBLIC_IP = '65.1.92.223'
+        EC2_PUBLIC_IP = '15.207.111.197'
         SSH_CREDENTIAL_ID = '786110' // Update with your credential ID
         GITHUB_REPO_URL = 'https://github.com/burhan121002/jn.git' // Update with your GitHub repository URL
     }
