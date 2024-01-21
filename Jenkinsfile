@@ -25,6 +25,7 @@ pipeline {
             steps {
                 script {
                     // Install Nginx (if not already installed)
+                    sh 'sudo su'
                     sh 'yum install nginx -y'
                 }
             }
