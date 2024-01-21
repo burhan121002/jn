@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     // Install Nginx (if not already installed)
-                    sh 'sudo yum install nginx -y'
+                    sh 'yum install nginx -y'
                 }
             }
         }
@@ -34,10 +34,10 @@ pipeline {
             steps {
                 script {
                     // Copy files to Nginx directory
-                    sh "sudo cp -r html/* $NGINX_DIR"
+                    sh "cp -r html/* $NGINX_DIR"
                     
                     // Restart Nginx to apply changes
-                    sh 'sudo service nginx restart'
+                    sh 'service nginx restart'
 
                     // SSH into EC2 and run commands using the credential
                     withCredentials([file(credentialsId: SSH_CREDENTIAL_ID, variable: 'PRIVATE_KEY_FILE')]) {
