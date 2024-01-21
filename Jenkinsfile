@@ -1,31 +1,48 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_DEFAULT_REGION = 'sp-south-1'
+        AWS_ACCESS_KEY_ID = 'AKIAQTLNJBEPTX7NPUOF'
+        AWS_SECRET_ACCESS_KEY = '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'
+        NGINX_DIR = '/usr/share/nginx/html/'
+        EC2_PUBLIC_IP = '65.1.92.223'
+        SSH_CREDENTIAL_ID = '786110' // Update with your credential ID
+        GITHUB_REPO_URL = 'https://github.com/burhan121002/jn.git' // Update with your GitHub repository URL
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from GitHub
                 script {
-                    git branch: 'main', url: 'https://github.com/burhan121002/jn.git'
+                    // Check out the repository using the GitHub URL
+                    git branch: 'main', url: GITHUB_REPO_URL
                 }
             }
         }
 
         stage('Build') {
             steps {
-                // Install dependencies and run the Python application
                 script {
-                    
-                    bat 'python app.py'
+                    // Install Nginx (if not already installed)
+                    sh 'sudo yum install nginx -y'
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                // Deploy stage (echo a message for demonstration)
                 script {
-                    echo 'Deployment successful! Your application is now deployed.'
+                    // Copy files to Nginx directory
+                    sh "sudo cp -r html/* $NGINX_DIR"
+                    
+                    // Restart Nginx to apply changes
+                    sh 'sudo service nginx restart'
+
+                    // SSH into EC2 and run commands using the credential
+                    withCredentials([file(credentialsId: SSH_CREDENTIAL_ID, variable: 'PRIVATE_KEY_FILE')]) {
+                        sh "ssh -i $PRIVATE_KEY_FILE -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@$EC2_PUBLIC_IP 'sudo service nginx restart'"
+                    }
                 }
             }
         }
