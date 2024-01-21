@@ -25,8 +25,7 @@ pipeline {
             steps {
                 script {
                     // Install Nginx (if not already installed)
-                    sh 'sudo -S'
-                    sh 'yum install nginx -y'
+                    sh 'sudo -S yum install nginx -y'  // Corrected usage of sudo -S
                 }
             }
         }
@@ -36,7 +35,7 @@ pipeline {
                 script {
                     // Copy files to Nginx directory
                     sh "cp -r html/* $NGINX_DIR"
-                    
+
                     // Restart Nginx to apply changes
                     sh 'service nginx restart'
 
