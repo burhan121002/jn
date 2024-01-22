@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = 'sp-south-1'
-        AWS_ACCESS_KEY_ID = 'AKIAQTLNJBEPTX7NPUOF'
-        AWS_SECRET_ACCESS_KEY = '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'
+        AWS_ACCESS_KEY_ID = ''
+        AWS_SECRET_ACCESS_KEY = ''
         NGINX_DIR = '/usr/share/nginx/html/'
         EC2_PUBLIC_IP = '15.207.111.197'
         SSH_CREDENTIAL_ID = '786110' // Update with your credential ID
